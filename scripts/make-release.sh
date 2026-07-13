@@ -1,4 +1,5 @@
-#/bin/sh
+#!/bin/sh
+set -e
 # Load project version
 PKG_VERSION=$(cat ./package.json | jq -r ".version")
 # First, clean the project and prevous releases
