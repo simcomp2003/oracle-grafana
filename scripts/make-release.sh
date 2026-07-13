@@ -10,9 +10,12 @@ echo "Compiling code..."
 npm ci && npm run build && mage -v
 # Make distribution files
 echo "Compacting release files..."
-cd ./dist/
-zip -r ../albertowd-oraclegrafana-datasource-bundle-${PKG_VERSION}.zip . --exclude="gpx*arm*"
-zip -r ../albertowd-oraclegrafana-datasource-darwin-amd64-${PKG_VERSION}.zip . --exclude="gpx*arm*" --exclude="gpx*linux*" --exclude="gpx*windows*"
-zip -r ../albertowd-oraclegrafana-datasource-linux-amd64-${PKG_VERSION}.zip . --exclude="gpx*arm*" --exclude="gpx*darwin*" --exclude="gpx*windows*"
-zip -r ../albertowd-oraclegrafana-datasource-windows-amd64-${PKG_VERSION}.zip . --exclude="gpx*arm*" --exclude="gpx*darwin*" --exclude="gpx*linux*"
-cd ../
+PLUGIN_ID="albertowd-oraclegrafana-datasource"
+# Grafana's installer reuares the zip to contain a top-level directory anmed after the plugin ID
+mv ./dist/ ./${PLUGIN_ID}
+
+zip -r ${PLUGIN_ID}-bundle-${PKG_VERSION}.zip ${PLUGIN_ID}/ --exclude="${PLUGIN_ID}/gpx*arm*"
+zip -r ${PLUGIN_ID}-darwin-amd64-${PKG_VERSION}.zip ${PLUGIN_ID}/ --exclude="${PLUGIN_ID}/gpx*arm*" --exclude="${PLUGIN_ID}/gpx*linux*" --exclude="${PLUGIN_ID}/gpx*windows*"
+zip -r ${PLUGIN_ID}-linux-amd64-${PKG_VERSION}.zip ${PLUGIN_ID}/ --exclude="${PLUGIN_ID}/gpx*arm*" --exclude="${PLUGIN_ID}/gpx*darwin*" --exclude="${PLUGIN_ID}/gpx*windows*"
+zip -r ${PLUGIN_ID}-windows-amd64-${PKG_VERSION}.zip ${PLUGIN_ID}/ --exclude="${PLUGIN_ID}/gpx*arm*" --exclude="${PLUGIN_ID}/gpx*darwin*" --exclude="${PLUGIN_ID}/gpx*linux*"
+mv ./${PLUGIN_ID}/ ./dist
