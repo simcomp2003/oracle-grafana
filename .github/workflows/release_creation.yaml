@@ -3,7 +3,7 @@ name: Release Creation
 on:
   push:
     branches:
-      - 'relrease/*'
+      - 'release/*'
     tags:
       - '*'
   workflow_dispatch:
@@ -29,4 +29,4 @@ jobs:
         with:
           draft: true
           files: |
-            albertowd-oraclegrafana-datasource-*.tar.gz
+            albertowd-oraclegrafana-datasource-*.zip
